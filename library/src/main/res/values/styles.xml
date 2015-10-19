@@ -1,0 +1,7 @@
+<resources>
+
+    <declare-styleable name="ScrollDownLayout">
+        <attr name="max_offset" format="dimension"/>
+    </declare-styleable>
+
+</resources>

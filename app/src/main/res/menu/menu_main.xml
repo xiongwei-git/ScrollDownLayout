@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".MainActivity">
+
+    <item android:id="@+id/action_open"
+          android:title="change to open"
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
+
+      <item android:id="@+id/action_close"
+            android:title="change to close"
+            android:orderInCategory="101"
+            app:showAsAction="never"/>
+
+      <item android:id="@+id/action_to_exit"
+            android:title="down glide to exit"
+            android:orderInCategory="102"
+            android:checkable="true"
+            app:showAsAction="never"/>
+
+</menu>
