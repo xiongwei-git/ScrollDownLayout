@@ -85,7 +85,6 @@ public class ScrollDownLayout extends FrameLayout {
     private Scroller scroller;
     private GestureDetector gestureDetector;
     private boolean isEnable = true;
-    //是否支持下滑退出
     private boolean isSupportExit = false;
     private boolean isAllowHorizontalScroll = true;
     private boolean isDraggable = true;
