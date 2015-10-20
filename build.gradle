@@ -16,9 +16,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven {
-            url 'http://dl.bintray.com/xiongwei-git/maven'
-        }
+//        maven {
+//            url 'http://dl.bintray.com/xiongwei-git/maven'
+//        }
     }
 
 }
