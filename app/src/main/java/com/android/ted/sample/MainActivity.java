@@ -70,12 +70,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void openOptionsMenu() {
+        super.openOptionsMenu();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_close) {
             mScrollDownLayout.setToClosed();
             return true;
         }else if(item.getItemId() == R.id.action_to_exit){
             mScrollDownLayout.setIsSupportExit(!mScrollDownLayout.isSupportExit());
+            invalidateOptionsMenu();
             return true;
         }else if(item.getItemId() == R.id.action_open){
             mScrollDownLayout.setToOpen();
@@ -96,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         mScrollDownLayout.setMaxOffset(800);
         mScrollDownLayout.setExitOffset(1674);
         mScrollDownLayout.setToOpen();
+        mScrollDownLayout.setIsSupportExit(true);
         mScrollDownLayout.setAllowHorizontalScroll(true);
         mScrollDownLayout.setOnScrollChangedListener(mOnScrollChangedListener);
 

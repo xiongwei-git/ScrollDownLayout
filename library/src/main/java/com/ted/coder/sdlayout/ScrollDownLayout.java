@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,18 +45,14 @@ public class ScrollDownLayout extends FrameLayout {
     private static final float DRAG_SPEED_MULTIPLIER = 1f;
     private static final int DRAG_SPEED_SLOP = 30;
     private static final int MOTION_DISTANCE_SLOP = 10;
-    private static final float SCROLL_TO_CLOSE_OFFSET_FACTOR = 0.8f;
+    private static final float SCROLL_TO_CLOSE_OFFSET_FACTOR = 0.5f;
     private static final float SCROLL_TO_EXIT_OFFSET_FACTOR = 0.1f;
     private final GestureDetector.OnGestureListener gestureListener =
             new GestureDetector.SimpleOnGestureListener() {
                 @Override
                 public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                     if (velocityY > FLING_VELOCITY_SLOP) {
-                        if(getCurrentStatus().equals(Status.OPENED) && isSupportExit()){
-                            scrollToExit();
-                        }else {
-                            scrollToOpen();
-                        }
+                        scrollToOpen();
                         return true;
                     } else if (velocityY < FLING_VELOCITY_SLOP) {
                         scrollToClose();
@@ -153,6 +150,7 @@ public class ScrollDownLayout extends FrameLayout {
     @Override
     public void scrollTo(int x, int y) {
         super.scrollTo(x, y);
+        log(y);
         if (maxOffset == minOffset) {
             return;
         }
@@ -162,18 +160,21 @@ public class ScrollDownLayout extends FrameLayout {
             onScrollProgressChanged(progress);
         }
         if (y == -minOffset) {
+            log("closed");
             // closed
             if (currentInnerStatus != InnerStatus.CLOSED) {
                 currentInnerStatus = InnerStatus.CLOSED;
                 onScrollFinished(Status.CLOSED);
             }
         } else if (y == -maxOffset) {
+            log("opened");
             // opened
             if (currentInnerStatus != InnerStatus.OPENED) {
                 currentInnerStatus = InnerStatus.OPENED;
                 onScrollFinished(Status.OPENED);
             }
         } else if (isSupportExit && y == -exitOffset) {
+            log("exited");
             // exited
             if (currentInnerStatus != InnerStatus.EXIT) {
                 currentInnerStatus = InnerStatus.EXIT;
@@ -571,5 +572,9 @@ public class ScrollDownLayout extends FrameLayout {
          * @param currentStatus the current status after change
          */
         void onScrollFinished(Status currentStatus);
+    }
+
+    private void log(Object msg){
+        Log.d("xiongwei","msg = "+msg);
     }
 }
