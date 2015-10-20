@@ -1,11 +1,9 @@
 # ScrollDownLayout
 ##Summary
 An custom Android Widget，support u use ViewPager in a ScrollView or ListView。
-##Screenshot
-![1](https://github.com/xiongwei-git/ScrollDownLayout/blob/master/Art/Screenshot_1.png)
-![2](https://github.com/xiongwei-git/ScrollDownLayout/blob/master/Art/Screenshot_2.png)
-![3](https://github.com/xiongwei-git/ScrollDownLayout/blob/master/Art/Screenshot_3.png)
-
+##Gif & Usage scenario
+![1](https://github.com/xiongwei-git/ScrollDownLayout/blob/master/Art/2.gif)
+![2](https://github.com/xiongwei-git/ScrollDownLayout/blob/master/Art/use.png)
 ##Video
 [Youtube](https://youtu.be/YVO7dljmwpw)
 ##Demo
