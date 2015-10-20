@@ -1,6 +1,6 @@
 # ScrollDownLayout
 ##Summary 概要
-An custom Android Widget，support u use ViewPager in a ScrollView or ListView。
+An custom Android Widget，support u use ViewPager in a ScrollView or ListView。  
 帮助你能够在ScrollView或者ListView里面使用ViewPager，支持手势下滑退出页面
 
 ##Gif & Usage scenario Gif动画和使用场景
