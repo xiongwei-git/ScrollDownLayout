@@ -16,7 +16,7 @@ An custom Android Widgetï¼Œsupport u use ViewPager in a ScrollView or ListViewã€
 #### Gradle
 ```
 dependencies {
-    compile 'com.ted.coder.sdlayout:library:1.0.1'
+    compile 'com.ted.coder.sdlayout:library:1.0.2'
 }
 ```
 ###Step 2
