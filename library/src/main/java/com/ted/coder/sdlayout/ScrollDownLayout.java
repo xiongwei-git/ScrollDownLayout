@@ -40,7 +40,7 @@ import com.ted.coder.sdlayout.content.ContentScrollView;
 public class ScrollDownLayout extends FrameLayout {
     private static final int MAX_SCROLL_DURATION = 400;
     private static final int MIN_SCROLL_DURATION = 100;
-    private static final int FLING_VELOCITY_SLOP = 10;
+    private static final int FLING_VELOCITY_SLOP = 80;
     private static final float DRAG_SPEED_MULTIPLIER = 1f;
     private static final int DRAG_SPEED_SLOP = 30;
     private static final int MOTION_DISTANCE_SLOP = 10;
@@ -51,10 +51,17 @@ public class ScrollDownLayout extends FrameLayout {
                 @Override
                 public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                     if (velocityY > FLING_VELOCITY_SLOP) {
-                        scrollToOpen();
+                        if(lastFlingStatus.equals(Status.OPENED)){
+                            lastFlingStatus = Status.EXIT;
+                            scrollToExit();
+                        }else {
+                            scrollToOpen();
+                            lastFlingStatus = Status.OPENED;
+                        }
                         return true;
                     } else if (velocityY < FLING_VELOCITY_SLOP) {
                         scrollToClose();
+                        lastFlingStatus = Status.CLOSED;
                         return true;
                     }
                     return false;
@@ -78,6 +85,7 @@ public class ScrollDownLayout extends FrameLayout {
     private float lastY;
     private float lastDownX;
     private float lastDownY;
+    private Status lastFlingStatus = Status.CLOSED;
     private Scroller scroller;
     private GestureDetector gestureDetector;
     private boolean isEnable = true;
@@ -431,6 +439,7 @@ public class ScrollDownLayout extends FrameLayout {
     public void setToOpen() {
         scrollTo(0, -maxOffset);
         currentInnerStatus = InnerStatus.OPENED;
+        lastFlingStatus = Status.OPENED;
     }
 
     /**
@@ -439,16 +448,17 @@ public class ScrollDownLayout extends FrameLayout {
     public void setToClosed() {
         scrollTo(0, -minOffset);
         currentInnerStatus = InnerStatus.CLOSED;
+        lastFlingStatus = Status.CLOSED;
     }
 
     /**
-     * Init the layout to closed, with no animation.
+     * Init the layout to exited, with no animation.
      */
-    public void setToExit() {
-        if (!isSupportExit) return;
-        scrollTo(0, -exitOffset);
-        currentInnerStatus = InnerStatus.EXIT;
-    }
+//    public void setToExit() {
+//        if (!isSupportExit) return;
+//        scrollTo(0, -exitOffset);
+//        currentInnerStatus = InnerStatus.EXIT;
+//    }
 
     public void setMinOffset(int minOffset) {
         this.minOffset = minOffset;
