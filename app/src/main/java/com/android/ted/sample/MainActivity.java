@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }
+
+        @Override
+        public void onChildScroll(int top) {
+
+        }
     };
 
     private ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener() {

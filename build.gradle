@@ -16,6 +16,8 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "http://10.0.18.175/nexus/content/repositories/thirdparty/" }
+
 //        maven {
 //            url 'http://dl.bintray.com/xiongwei-git/maven'
 //        }

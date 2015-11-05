@@ -41,7 +41,7 @@ public class ScrollDownLayout extends FrameLayout {
     private static final int MAX_SCROLL_DURATION = 400;
     private static final int MIN_SCROLL_DURATION = 100;
     private static final int FLING_VELOCITY_SLOP = 80;
-    private static final float DRAG_SPEED_MULTIPLIER = 1f;
+    private static final float DRAG_SPEED_MULTIPLIER = 1.2f;
     private static final int DRAG_SPEED_SLOP = 30;
     private static final int MOTION_DISTANCE_SLOP = 10;
     private static final float SCROLL_TO_CLOSE_OFFSET_FACTOR = 0.2f;
@@ -51,10 +51,10 @@ public class ScrollDownLayout extends FrameLayout {
                 @Override
                 public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                     if (velocityY > FLING_VELOCITY_SLOP) {
-                        if(lastFlingStatus.equals(Status.OPENED)){
+                        if (lastFlingStatus.equals(Status.OPENED) && -getScrollY() > maxOffset) {
                             lastFlingStatus = Status.EXIT;
                             scrollToExit();
-                        }else {
+                        } else {
                             scrollToOpen();
                             lastFlingStatus = Status.OPENED;
                         }
@@ -136,8 +136,10 @@ public class ScrollDownLayout extends FrameLayout {
 
     private ContentScrollView.OnScrollChangedListener mOnScrollChangedListener = new ContentScrollView.OnScrollChangedListener() {
         @Override
-        public void onScrollChanged(int l, int t, int oldl, int oldt) {
+        public void onScrollChanged(int l, int t, int oldL, int oldT) {
             if (null == mScrollView) return;
+            if(null != onScrollChangedListener)
+                onScrollChangedListener.onChildScroll(oldT);
             if (mScrollView.getScrollY() == 0) {
                 setDraggable(true);
             } else {
@@ -454,11 +456,11 @@ public class ScrollDownLayout extends FrameLayout {
     /**
      * Init the layout to exited, with no animation.
      */
-//    public void setToExit() {
-//        if (!isSupportExit) return;
-//        scrollTo(0, -exitOffset);
-//        currentInnerStatus = InnerStatus.EXIT;
-//    }
+    public void setToExit() {
+        if (!isSupportExit) return;
+        scrollTo(0, -exitOffset);
+        currentInnerStatus = InnerStatus.EXIT;
+    }
 
     public void setMinOffset(int minOffset) {
         this.minOffset = minOffset;
@@ -577,6 +579,13 @@ public class ScrollDownLayout extends FrameLayout {
          * @param currentStatus the current status after change
          */
         void onScrollFinished(Status currentStatus);
+
+        /***
+         * Called when the child view is scrolled
+         *
+         * @param top the child view scroll data
+         */
+        void onChildScroll(int top);
     }
 
 }
